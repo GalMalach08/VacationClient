@@ -11,7 +11,7 @@ const Chart = () => {
 
 
   const getVacations = async () => {
-    const res = await fetch('/vacation')
+    const res = await fetch('https://vacationweb.herokuapp.com/vacation')
     const { vacations } = await res.json() 
     const labelsArr = []
     const dataArr = []

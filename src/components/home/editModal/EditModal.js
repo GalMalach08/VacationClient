@@ -96,7 +96,7 @@ const EditModal = ({ editModalOpen ,setEditModalOpen, vacationToEdit })  =>  {
 
   // Get the chosen vacation and set the initial values
   const getVacation = async () => {
-    const res = await fetch(`/vacation/${vacationToEdit}`)
+    const res = await fetch(`https://vacationweb.herokuapp.com/vacation/${vacationToEdit}`)
     const { vacation } = await res.json()
     setSelectedStartDate(handleDate(vacation.start_date))
     setSelectedEndDate(handleDate(vacation.end_date))
@@ -110,7 +110,7 @@ const EditModal = ({ editModalOpen ,setEditModalOpen, vacationToEdit })  =>  {
       if(values.image === initialValues.image) delete values.image
       let end_date =  handleDate(moment(selectedEndDate).format('L'))
       let start_date =  handleDate(moment(selectedStartDate).format('L'))
-      const res = await fetch('/vacation',{
+      const res = await fetch('https://vacationweb.herokuapp.com/vacation',{
         method: 'PATCH',
         headers: {
             'Content-Type':'application/json'

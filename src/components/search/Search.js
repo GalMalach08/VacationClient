@@ -80,7 +80,7 @@ const Search = () => {
       if(searchBy === 'Dates') value = { startDate:selectedStartDate, endDate: selectedEndDate }
       else value = searchValue
       const searchObj = { value, type:searchBy }
-      const res = await fetch(`/vacation/search/${JSON.stringify(searchObj)}`)
+      const res = await fetch(`https://vacationweb.herokuapp.com/vacation/search/${JSON.stringify(searchObj)}`)
       const { vacations } = await res.json()
       vacations.forEach(vacation => Boolean(vacation.Follows.find(follow => Number(follow.UserId) === Number(user.id))) ? vacation.isFollow = true : vacation.isFollow = false)
       vacations.sort((x, y) =>  x.isFollow - y.isFollow).reverse()

@@ -63,7 +63,7 @@ const AddVacationModal = ({ addVacationModalOpen, setAddVacationModalOpen }) => 
             start_date[0] = start_date[1]
             start_date[1] = tmp1
             start_date = start_date.join('/')
-            const res = await fetch('/vacation',{
+            const res = await fetch('https://vacationweb.herokuapp.com/vacation',{
                  method: 'POST',
                  headers: {
                      'Content-Type':'application/json'

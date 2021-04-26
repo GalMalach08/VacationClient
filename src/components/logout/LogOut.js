@@ -7,7 +7,7 @@ const LogOut = ({ setIsAuth }) => {
     const logOut = async () => {
         setIsAuth(false)
         localStorage.removeItem('user')
-        await fetch('/auth/logout')
+        // await fetch('/auth/logout')
         history.push('/signin') 
     }
     

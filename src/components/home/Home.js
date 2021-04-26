@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
   // Get all the vacations
   const getVacations = async () => {
     try {
-      const res = await fetch('/vacation')
+      const res = await fetch('https://vacationweb.herokuapp.com/vacation')
       const { vacations } = await res.json()
       vacations.forEach(vacation => Boolean(vacation.Follows.find(follow => Number(follow.UserId) === Number(user.id))) ? vacation.isFollow = true : vacation.isFollow = false)
       vacations.sort((x, y) =>  x.isFollow - y.isFollow).reverse()
@@ -115,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
   const setFollow = async (VacationId, isFollow) => {
     try {
         if(!isFollow) { // if the user not following - make follow
-          const response = await fetch('/follow', { 
+          const response = await fetch('https://vacationweb.herokuapp.com/follow', { 
             method: 'POST',
             headers: {
                 'Content-Type':'application/json'
@@ -130,7 +130,7 @@ const useStyles = makeStyles((theme) => ({
               dispatch(setVacationsState(vacations))
             }
         } else {
-          const response = await fetch('/follow/unfollow', { 
+          const response = await fetch('https://vacationweb.herokuapp.com/follow/unfollow', { 
             method: 'POST',
             headers: {
                 'Content-Type':'application/json'

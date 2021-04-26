@@ -13,7 +13,7 @@ const DeleteVacationModal = ({ deleteVacationModalOpen, setDeleteVacationModalOp
     const deleteVacation = async (id) => {
         try {
             setButtonDisabled(true)
-            const res = await fetch('/vacation',{
+            const res = await fetch('https://vacationweb.herokuapp.com/vacation',{
                 method: 'DELETE',
                 headers: {
                     'Content-Type':'application/json'
