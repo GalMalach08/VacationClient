@@ -25,7 +25,10 @@ const useStyles = makeStyles((theme) => ({
       marginRight: theme.spacing(2),
       marginLeft: theme.spacing(2),
       width: '408px',
-      color:'black'
+      color:'black',
+      [theme.breakpoints.up('sm')]: {
+        width: 'auto',
+      },
     },
     searchIcon: {
       padding: theme.spacing(0, 2),
@@ -118,7 +121,8 @@ const Search = () => {
                 onChange={handleStartDateChange}
               />
               <KeyboardDatePicker
-                label="end date"
+              label="end date"
+            
                 format="dd/MM/yyyy"
                 value={selectedEndDate}
                 onChange={handleEndDateChange}

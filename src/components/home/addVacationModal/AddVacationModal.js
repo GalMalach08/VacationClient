@@ -7,12 +7,13 @@ import Modal from 'react-bootstrap/Modal'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 // Material ui
-import { Input, IconButton, Collapse, TextField, Button, Grid  } from '@material-ui/core';
+import { Input, IconButton, Collapse, TextField, Button, Grid  } from '@material-ui/core'
+import { StylesProvider } from '@material-ui/core/styles'
 import ImageIcon from '@material-ui/icons/Image'
 import CloseIcon from '@material-ui/icons/Close'
 import Alert from '@material-ui/lab/Alert'
-import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns'
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
 // momentjs 
 const moment = require('moment')
 
@@ -104,62 +105,64 @@ const AddVacationModal = ({ addVacationModalOpen, setAddVacationModalOpen }) => 
     }
     return (
         <>    
-        <Modal size="lg" style={{ marginTop:'120px', paddingTop:'120px' }} centered show={addVacationModalOpen} onHide={handleClose} >
-            <Modal.Header> <Modal.Title style={{fontWeight:'700'}}> Add new vacation </Modal.Title> </Modal.Header>
-            <Modal.Body>
-                <Formik
-                    initialValues={{ destination: '', description: '', start_date: '', end_date: '', price: '', image: ''}}
-                    onSubmit={(values,{resetForm}) => addVacation(values, resetForm)}
-                    validationSchema={validationSchema}
-                    enableReinitialize={true}>
-                    {(props) => (
-                        <form style={{textAlign:'center'}} onSubmit={props.handleSubmit} autoComplete="off">
-                        <TextField margin="normal" name="destination" label="Destination" variant="outlined" fullWidth 
-                        {...props.getFieldProps('destination')} {...errorHelper(props,'destination')}/> 
+        <StylesProvider>
+            <Modal size="lg" style={{ marginTop:'120px', paddingTop:'120px' }} centered show={addVacationModalOpen} onHide={handleClose} >
+                <Modal.Header> <Modal.Title style={{fontWeight:'700'}}> Add new vacation </Modal.Title> </Modal.Header>
+                <Modal.Body>
+                    <Formik
+                        initialValues={{ destination: '', description: '', start_date: '', end_date: '', price: '', image: ''}}
+                        onSubmit={(values,{resetForm}) => addVacation(values, resetForm)}
+                        validationSchema={validationSchema}
+                        enableReinitialize={true}>
+                        {(props) => (
+                            <form style={{textAlign:'center'}} onSubmit={props.handleSubmit} autoComplete="off">
+                            <TextField margin="normal" name="destination" label="Destination" variant="outlined" fullWidth 
+                            {...props.getFieldProps('destination')} {...errorHelper(props,'destination')}/> 
+                            
+                            <TextField margin="normal" name="description" label="Description" variant="outlined" fullWidth 
+                            {...props.getFieldProps('description')} {...errorHelper(props,'description')}/> 
+
+                            <TextField margin="normal" name="price" label="Price" variant="outlined" fullWidth 
+                            {...props.getFieldProps('price')} {...errorHelper(props,'price')}/>  
+
+                            <Grid item xs={3}>
+                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                    <KeyboardDatePicker
+                                    style={{margin:'3px 22px 12px 0px'}}
+                                    label="start date"
+                                    format="dd/MM/yyyy"
+                                    value={selectedStartDate}
+                                    onChange={handleStartDateChange}
+                                    />
+                                    <KeyboardDatePicker
+                                    label="end date"
+                                    style={{margin:'3px 3px 3px 0px'}}
+                                    format="dd/MM/yyyy"
+                                    value={selectedEndDate}
+                                    onChange={handleEndDateChange}
+                                    />
+                                </MuiPickersUtilsProvider>
+                            </Grid>  
                         
-                        <TextField margin="normal" name="description" label="Description" variant="outlined" fullWidth 
-                        {...props.getFieldProps('description')} {...errorHelper(props,'description')}/> 
+                            <Input id="file"  className="inputfile" type="file" name="photo" onChange={(e) => handleChangeImage(e,props.setFieldValue )} hidden/> 
+                            <Button style={{display:'block', margin:'5px 0px'}} color='primary'  variant="outlined"><ImageIcon className=""/><label htmlFor="file">{imageName ? `${imageName} UPLOADED` : 'VACATION IMAGE'} </label></Button>
+                            {props.errors.image && props.touched.image ?  <div className="error">{props.errors.image}</div>  : null}
 
-                        <TextField margin="normal" name="price" label="Price" variant="outlined" fullWidth 
-                        {...props.getFieldProps('price')} {...errorHelper(props,'price')}/>  
-
-                        <Grid item xs={6}>
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <KeyboardDatePicker
-                                style={{margin:'3px 22px 12px 0px'}}
-                                label="start date"
-                                format="dd/MM/yyyy"
-                                value={selectedStartDate}
-                                onChange={handleStartDateChange}
-                                />
-                                <KeyboardDatePicker
-                                label="end date"
-                                style={{margin:'3px 3px 3px 0px'}}
-                                format="dd/MM/yyyy"
-                                value={selectedEndDate}
-                                onChange={handleEndDateChange}
-                                />
-                            </MuiPickersUtilsProvider>
-                        </Grid>  
-                       
-                        <Input id="file"  className="inputfile" type="file" name="photo" onChange={(e) => handleChangeImage(e,props.setFieldValue )} hidden/> 
-                        <Button style={{display:'block', margin:'5px 0px'}} color='primary'  variant="outlined"><ImageIcon className=""/><label htmlFor="file">{imageName ? `${imageName} UPLOADED` : 'VACATION IMAGE'} </label></Button>
-                        {props.errors.image && props.touched.image ?  <div className="error">{props.errors.image}</div>  : null}
-
-                        {/* Alert error */}
-                         <Collapse in={openAlert}>
-                            <Alert
-                            severity="error"
-                            action={ <IconButton color="inherit" size="small" onClick={() => setOpenAlert(false) }> <CloseIcon fontSize="inherit" /> </IconButton>}>
-                                {message}
-                            </Alert>
-                        </Collapse> 
-                        
-                        <Button disabled={buttonDisabled} className="my-3" variant="contained" color="primary" type="submit" size="large"> Add vacation </Button>
-                         </form> )}
-                    </Formik>  
-                 </Modal.Body>
-            </Modal>
+                            {/* Alert error */}
+                            <Collapse in={openAlert}>
+                                <Alert
+                                severity="error"
+                                action={ <IconButton color="inherit" size="small" onClick={() => setOpenAlert(false) }> <CloseIcon fontSize="inherit" /> </IconButton>}>
+                                    {message}
+                                </Alert>
+                            </Collapse> 
+                            
+                            <Button disabled={buttonDisabled} className="my-3" variant="contained" color="primary" type="submit" size="large"> Add vacation </Button>
+                            </form> )}
+                        </Formik>  
+                    </Modal.Body>
+                </Modal>
+            </StylesProvider>
         </>
     )
 }
