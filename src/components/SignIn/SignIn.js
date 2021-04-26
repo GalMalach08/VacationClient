@@ -97,7 +97,7 @@ const SignIn = ({ setIsAuth }) => {
     // Log in user
     const loginUser = async (values) =>{
       try {
-        const response = await fetch('api/auth/login', { method: 'POST',
+        const response = await fetch('https://vacationweb.herokuapp.com/auth/login', { method: 'POST',
             headers: {
                 'Content-Type':'application/json'
             },
