@@ -159,7 +159,7 @@ const EditModal = ({ editModalOpen ,setEditModalOpen, vacationToEdit })  =>  {
                   <TextField margin="normal" name="price" label="Price" variant="outlined" fullWidth 
                   {...props.getFieldProps('price')} {...errorHelper(props,'price')}/>  
 
-                  <Grid item xs={6}>
+                  <Grid item xs={6} md={3}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
                         style={{margin:'3px 22px 12px 0px'}}
