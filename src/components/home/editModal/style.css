@@ -1,0 +1,10 @@
+.world {
+ display: flex;
+ justify-content: center;
+}
+.icon {
+    margin:0px 10px;
+}
+.modal-backdrop.show {
+    opacity: 0.1;
+}

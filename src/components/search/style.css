@@ -1,0 +1,12 @@
+.sort_btn_div {
+    font-size: 15px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.sort_span {
+    font-size:12px;
+    margin-top:5px;
+    font-weight: 700;
+}

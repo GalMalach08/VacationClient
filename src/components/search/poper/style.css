@@ -1,0 +1,16 @@
+.vacationDiv {
+    display:flex;
+    align-items:center;
+    margin:10px;
+    padding:5px;
+    width:100%;
+}
+.vacationDiv:hover {
+    background-color:whitesmoke; 
+    cursor:pointer;
+}
+.sort_type {
+    margin:0px 15px;
+    color:black;
+}
+
