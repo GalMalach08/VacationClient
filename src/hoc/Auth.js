@@ -7,7 +7,7 @@ export const authGaurd = (ComposedComponent, setIsAuthenticate) => {
         const [isAuth, setIsAuth] = useState(false)
 
         const isUserAuthenticate = async () => {
-          const response = await fetch('/auth/isauth')
+          const response = await fetch('https://vacationweb.herokuapp.com/auth/isauth')
           const { success } = await response.json()
           if (success) {
             setIsAuthenticate(true)
