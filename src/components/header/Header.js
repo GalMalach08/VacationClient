@@ -50,7 +50,7 @@ const Header = () => {
         <div className="container-fluid bg-white">
           <div className="container">
             <Navbar bg="white" expand="md" className="navbar">
-              <Navbar.Brand>
+              <Navbar.Brand style={{height:'40px'}}>
                 <Link to="/" style={{ textDecoration: 'none', marginRight:'25%'}}>
                   <Typography className={classes.title} variant="h6" noWrap>
                     <Image cloudName="malachcloud" src="https://res.cloudinary.com/malachcloud/image/upload/v1618384622/summer-hot-vacation-logo-illustration-art-isolated-background-91286774_syvpkz.jpg" width="70" height="40" crop="scale" />
