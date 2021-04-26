@@ -150,13 +150,13 @@ const EditModal = ({ editModalOpen ,setEditModalOpen, vacationToEdit })  =>  {
               enableReinitialize={true}>
               {(props) => (
                 <form style={{textAlign:'center'}} onSubmit={props.handleSubmit} autoComplete="off">
-                  <TextField margin="normal" name="destination" label="Destination" variant="outlined" fullWidth 
+                  <TextField className="MuiInputBases" margin="normal" name="destination" label="Destination" variant="outlined" fullWidth 
                   {...props.getFieldProps('destination')} {...errorHelper(props,'destination')}/> 
                   
-                  <TextField margin="normal" name="description" label="Description" variant="outlined" fullWidth 
+                  <TextField className="MuiInputBases" margin="normal" name="description" label="Description" variant="outlined" fullWidth 
                   {...props.getFieldProps('description')} {...errorHelper(props,'description')}/>     
               
-                  <TextField margin="normal" name="price" label="Price" variant="outlined" fullWidth 
+                  <TextField className="MuiInputBases" margin="normal" name="price" label="Price" variant="outlined" fullWidth 
                   {...props.getFieldProps('price')} {...errorHelper(props,'price')}/>  
 
                   <Grid item xs={6} md={3}>
