@@ -65,7 +65,7 @@ const Header = () => {
                   <Nav.Link> 
                     <Link to="/" style={{ textDecoration: 'none', color:'black', marginTop:'7px' }}>
                       <IconButton color="inherit">
-                        <HomeIcon fontSize="large"/> <span className="link_desc">Home</span>
+                        <HomeIcon/> <span className="link_desc">Home</span>
                       </IconButton>
                     </Link>
                   </Nav.Link>
@@ -73,7 +73,7 @@ const Header = () => {
                     {user.admin && 
                         <Link to="/chart" style={{ textDecoration: 'none', color:'black', marginTop:'7px' }}>
                         <IconButton color="inherit">
-                        <BarChartIcon fontSize="large"/> <span className="link_desc">Chart</span>
+                        <BarChartIcon/> <span className="link_desc">Chart</span>
                         </IconButton>
                         </Link>
                         }
@@ -81,7 +81,7 @@ const Header = () => {
                   <Nav.Link> 
                     <Link to="/logout" style={{ textDecoration: 'none', color:'black', marginTop:'7px' }}>
                       <IconButton color="inherit">
-                        <ExitToAppIcon fontSize="large"/> <span className="link_desc">Logout</span>
+                        <ExitToAppIcon/> <span className="link_desc">Logout</span>
                       </IconButton>
                     </Link>
                   </Nav.Link>
