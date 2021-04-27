@@ -121,13 +121,13 @@ const SignUp = ({ setIsAuth }) => {
   // Add new user
   const signUpUser = async (values) => {
     try {
-         const token = await reRef.current.getValue()
+        //  const token = await reRef.current.getValue()
          const response = await fetch('https://vacationweb.herokuapp.com/auth/signup', { 
          method: 'POST',
          headers: {
           'Content-Type':'application/json'
         },
-        body: JSON.stringify({...values, token})
+        body: JSON.stringify({...values })
         })
         const data = await response.json()
         reRef.current.reset()
