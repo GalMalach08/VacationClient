@@ -9,7 +9,7 @@ import AddVacationModal from './addVacationModal/AddVacationModal'
 import DeleteVacationModal from './deletevacation/DeleteVacationModal'
 import VacationCard from '../vacationCard/VacationCard'
 // Material ui components
-import { Grid, Fab } from '@material-ui/core'
+import { Grid, Fab, Grow } from '@material-ui/core'
 import { makeStyles, StylesProvider } from '@material-ui/core/styles'
 // Material ui icons
 import AddIcon  from '@material-ui/icons/Add'
@@ -181,26 +181,28 @@ const useStyles = makeStyles((theme) => ({
      </>
       : null}
       <StylesProvider injectFirst>
-      <div className="container">
-        <Grid container>
-            {vacations ? 
-            vacations.length !== 0 ?  vacations.map(vacation => (
-              <Grid item xs={11} lg={5} key={vacation.id}  className={classes.root}>
-                <VacationCard vacation={vacation} editVacation={editVacation} 
-                deleteVacation={deleteVacation} setFollow={setFollow} isAdmin={isAdmin} />
-              </Grid>
-            )): null :  null  }
-
-          {/* Fab */}
-          {user.admin && <Fab color="primary"  className={classes.fab} onClick={() => setAddVacationModalOpen(true)} title="Add new vacation"> 
-              <AddIcon />
-            </Fab> } 
-          {/* Modals */}
-          { addVacationModalOpen && <AddVacationModal addVacationModalOpen={addVacationModalOpen} setAddVacationModalOpen={setAddVacationModalOpen} />}
-          { vacationToEdit && <EditModal setEditModalOpen={setEditModalOpen} editModalOpen={editModalOpen} vacationToEdit={vacationToEdit}/> }
-          { deleteVacationModalOpen && <DeleteVacationModal deleteVacationModalOpen={deleteVacationModalOpen} setDeleteVacationModalOpen={setDeleteVacationModalOpen} vacationName={vacationToDelete} id={vacationToDeleteId}/> }
-        </Grid>
-      </div>
+        <div className="container">
+          <Grid container>
+              {vacations ? 
+              vacations.length !== 0 ?  vacations.map(vacation => (
+                <Grow in={true} timeout={700}>
+                <Grid item xs={11} lg={5} key={vacation.id}  className={classes.root}>
+                  <VacationCard vacation={vacation} editVacation={editVacation} 
+                  deleteVacation={deleteVacation} setFollow={setFollow} isAdmin={isAdmin} />
+                </Grid> 
+                </Grow>
+              )): null :  null  }
+          
+            {/* Fab */}
+            {user.admin && <Fab color="primary"  className={classes.fab} onClick={() => setAddVacationModalOpen(true)} title="Add new vacation"> 
+                <AddIcon />
+              </Fab> } 
+            {/* Modals */}
+            { addVacationModalOpen && <AddVacationModal addVacationModalOpen={addVacationModalOpen} setAddVacationModalOpen={setAddVacationModalOpen} />}
+            { vacationToEdit && <EditModal setEditModalOpen={setEditModalOpen} editModalOpen={editModalOpen} vacationToEdit={vacationToEdit}/> }
+            { deleteVacationModalOpen && <DeleteVacationModal deleteVacationModalOpen={deleteVacationModalOpen} setDeleteVacationModalOpen={setDeleteVacationModalOpen} vacationName={vacationToDelete} id={vacationToDeleteId}/> }
+          </Grid>
+        </div>
     </StylesProvider>
   </>
   )

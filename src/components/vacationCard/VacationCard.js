@@ -1,12 +1,12 @@
 import React from 'react'
+// Material ui
 import { Divider, IconButton, Card, CardContent, CardHeader,
-        CardMedia, Avatar, Typography } from '@material-ui/core'
+CardMedia, Avatar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'  
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 // Cloudinary
 import { Image } from 'cloudinary-react'
-
 
 const useStyles = makeStyles(() => ({
     root: {
