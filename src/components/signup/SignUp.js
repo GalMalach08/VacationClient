@@ -197,7 +197,7 @@ const SignUp = ({ setIsAuth }) => {
                           </InputAdornment>
                       )}} />
                                       
-                  <ReCaptcha style={{margin:'10px 0px'}} sitekey="6LfruZ4aAAAAAAFNEQG6lPJLbJVjEThKg2DJdjEi" ref={reRef}/> 
+                  {/* <ReCaptcha style={{margin:'10px 0px'}} sitekey="6LfruZ4aAAAAAAFNEQG6lPJLbJVjEThKg2DJdjEi" ref={reRef}/>  */}
 
                   {/* Alert error */}
                   <Collapse in={openAlert}>
