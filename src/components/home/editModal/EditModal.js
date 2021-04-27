@@ -140,10 +140,10 @@ const EditModal = ({ editModalOpen ,setEditModalOpen, vacationToEdit })  =>  {
     return (
       <>
       { initialValues &&
-        <Modal size="lg" className={classes.root} centered show={editModalOpen} onHide={handleClose}>
-          <Modal.Header className=""> <Modal.Title style={{fontWeight:'700',margin:'auto'}}> Edit vacation </Modal.Title> </Modal.Header>
-          <Modal.Body>
-            <Formik
+        <Modal size="lg"  centered show={editModalOpen} onHide={handleClose}>
+        <Modal.Header className=""> <Modal.Title style={{fontWeight:'700',margin:'auto'}}> Edit vacation </Modal.Title> </Modal.Header>
+      <Modal.Body>
+      <Formik
               initialValues={initialValues}
               onSubmit={(values,{resetForm}) => editVacation(values, resetForm)}
               validationSchema={validationSchema}
@@ -162,7 +162,7 @@ const EditModal = ({ editModalOpen ,setEditModalOpen, vacationToEdit })  =>  {
                   <Grid item xs={6} md={3}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
-                        style={{margin:'3px 22px 12px 0px'}}
+                        style={{margin:'3px 22px 12px 0px', border:'1px solid lightgrey', padding:'5px'}}
                         label="start date"
                         format="dd/MM/yyyy"
                         value={selectedStartDate}
@@ -170,7 +170,7 @@ const EditModal = ({ editModalOpen ,setEditModalOpen, vacationToEdit })  =>  {
                         />
                         <KeyboardDatePicker
                         label="end date"
-                        style={{margin:'3px 3px 3px 0px'}}
+                        style={{margin:'3px 22px 12px 0px', border:'1px solid lightgrey', padding:'5px'}}
                         format="dd/MM/yyyy"
                         value={selectedEndDate}
                         onChange={handleEndDateChange}
@@ -180,11 +180,11 @@ const EditModal = ({ editModalOpen ,setEditModalOpen, vacationToEdit })  =>  {
                   
                   <Input id="file"  className="inputfile" type="file" name="photo" onChange={(e) => handleChangeImage(e,props.setFieldValue )} hidden/> 
                   <Button style={{display:'block', margin:'5px 0px'}} color='primary'  variant="outlined"><ImageIcon className=""/><label htmlFor="file">{imageName ? `${imageName} UPLOADED` : ' Vacation image'} </label></Button>
-                  {props.errors.photo && props.touched.photo ?  <div className="error">{props.errors.photo}</div>  : null}
+                  {props.errors.photo && props.touched.photo ?  <div className="error">{props.errors.photo}</div>  : null} 
 
 
                   {/* Alert error */}
-                    <Collapse in={openAlert}>
+                     <Collapse in={openAlert}>
                         <Alert
                         severity="error"
                         action={ <IconButton color="inherit" size="small" onClick={() => setOpenAlert(false) }> <CloseIcon fontSize="inherit" /> </IconButton>}>
@@ -194,8 +194,8 @@ const EditModal = ({ editModalOpen ,setEditModalOpen, vacationToEdit })  =>  {
                         <Button disabled={buttonDisabled} className="my-3" variant="contained" color="primary" type="submit" size="large"> Update vacation </Button>
                          </form> )}
                     </Formik>  
-                 </Modal.Body>
-            </Modal>
+            </Modal.Body>
+          </Modal>
       }
       </>
     )

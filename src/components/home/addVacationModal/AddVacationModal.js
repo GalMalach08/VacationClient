@@ -107,11 +107,10 @@ const AddVacationModal = ({ addVacationModalOpen, setAddVacationModalOpen }) => 
     }
     return (
         <>    
-        <StylesProvider>
-            <Modal size="lg" style={{ marginTop:'120px', paddingTop:'120px' }} centered show={addVacationModalOpen} onHide={handleClose} >
-                <Modal.Header> <Modal.Title style={{fontWeight:'700'}}> Add new vacation </Modal.Title> </Modal.Header>
+            <Modal show={addVacationModalOpen} onHide={handleClose} size="lg" centered>
+                <Modal.Header> <Modal.Title style={{fontWeight:'700', margin:'auto'}}> Add new vacation </Modal.Title> </Modal.Header>
                 <Modal.Body>
-                    <Formik
+                  <Formik
                         initialValues={{ destination: '', description: '', start_date: '', end_date: '', price: '', image: ''}}
                         onSubmit={(values,{resetForm}) => addVacation(values, resetForm)}
                         validationSchema={validationSchema}
@@ -130,7 +129,7 @@ const AddVacationModal = ({ addVacationModalOpen, setAddVacationModalOpen }) => 
                             <Grid item xs={6} md={3}>
                                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                     <KeyboardDatePicker
-                                    style={{margin:'3px 22px 12px 0px'}}
+                                    style={{margin:'3px 22px 12px 0px', border:'1px solid lightgrey', padding:'5px'}}
                                     label="start date"
                                     format="dd/MM/yyyy"
                                     value={selectedStartDate}
@@ -138,7 +137,7 @@ const AddVacationModal = ({ addVacationModalOpen, setAddVacationModalOpen }) => 
                                     />
                                     <KeyboardDatePicker
                                     label="end date"
-                                    style={{margin:'3px 3px 3px 0px'}}
+                                    style={{margin:'3px 22px 12px 0px', border:'1px solid lightgrey', padding:'5px'}}
                                     format="dd/MM/yyyy"
                                     value={selectedEndDate}
                                     onChange={handleEndDateChange}
@@ -147,11 +146,11 @@ const AddVacationModal = ({ addVacationModalOpen, setAddVacationModalOpen }) => 
                             </Grid>  
                         
                             <Input id="file"  className="inputfile" type="file" name="photo" onChange={(e) => handleChangeImage(e,props.setFieldValue )} hidden/> 
-                            <Button style={{display:'block', margin:'5px 0px'}} color='primary'  variant="outlined"><ImageIcon className=""/><label htmlFor="file">{imageName ? `${imageName} UPLOADED` : 'VACATION IMAGE'} </label></Button>
-                            {props.errors.image && props.touched.image ?  <div className="error">{props.errors.image}</div>  : null}
+                            <Button style={{display:'block', margin:'5px'}} color='primary'  variant="outlined"><ImageIcon className=""/><label htmlFor="file">{imageName ? `${imageName} UPLOADED` : 'VACATION IMAGE'} </label></Button>
+                            {props.errors.image && props.touched.image ?  <div className="error">{props.errors.image}</div>  : null} 
 
                             {/* Alert error */}
-                            <Collapse in={openAlert}>
+                             <Collapse in={openAlert}>
                                 <Alert
                                 severity="error"
                                 action={ <IconButton color="inherit" size="small" onClick={() => setOpenAlert(false) }> <CloseIcon fontSize="inherit" /> </IconButton>}>
@@ -162,9 +161,8 @@ const AddVacationModal = ({ addVacationModalOpen, setAddVacationModalOpen }) => 
                             <Button disabled={buttonDisabled} className="my-3" variant="contained" color="primary" type="submit" size="large"> Add vacation </Button>
                             </form> )}
                         </Formik>  
-                    </Modal.Body>
-                </Modal>
-            </StylesProvider>
+                </Modal.Body>
+            </Modal>   
         </>
     )
 }

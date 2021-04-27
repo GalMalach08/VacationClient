@@ -165,7 +165,7 @@ const SignIn = ({ setIsAuth }) => {
                   </Alert>
                 </Collapse>
 
-                <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} > Sign In </Button>
+                <Button disabled={buttonDisabled} className="my-3" variant="contained" color="primary"type="submit" fullWidth variant="contained" color="primary" className={classes.submit} > Sign In </Button>
                 
                 <Grid container>
                   <Grid item>

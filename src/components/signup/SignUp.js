@@ -141,6 +141,7 @@ const SignUp = ({ setIsAuth }) => {
         } else {
           setMessage(data.error)
           setOpenAlert(true)
+          setButtonDisabled(false)
         }
         } catch (error) {
             console.error(error)
