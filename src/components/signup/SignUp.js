@@ -83,6 +83,7 @@ const SignUp = ({ setIsAuth }) => {
   const [openAlert, setOpenAlert] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [buttonDisabled, setButtonDisabled] = useState(false)
   const classes = useStyles()
   const reRef = useRef()
   const history = useHistory()
@@ -121,6 +122,7 @@ const SignUp = ({ setIsAuth }) => {
   // Add new user
   const signUpUser = async (values) => {
     try {
+      setButtonDisabled(true)
         //  const token = await reRef.current.getValue()
          const response = await fetch('https://vacationweb.herokuapp.com/auth/signup', { 
          method: 'POST',
@@ -130,10 +132,11 @@ const SignUp = ({ setIsAuth }) => {
         body: JSON.stringify({...values })
         })
         const data = await response.json()
-        reRef.current.reset()
+        // reRef.current.reset()
         if(data.user){
           localStorage.setItem('user', JSON.stringify({...data.user, newUser:true }))
           setIsAuth(true)
+          setButtonDisabled(false)
           history.push('/')
         } else {
           setMessage(data.error)
@@ -208,7 +211,7 @@ const SignUp = ({ setIsAuth }) => {
                     </Alert>
                   </Collapse>
 
-                  <Button className="my-3" variant="contained" color="primary" type="submit" size="large" fullWidth> Sign up </Button>
+                  <Button disabled={buttonDisabled} className="my-3" variant="contained" color="primary" type="submit" size="large" fullWidth> Sign up </Button>
                   <Grid container>
                     <Grid item>
                       <Link href="/signin" variant="body2"> Already have an account? Sign In </Link>
