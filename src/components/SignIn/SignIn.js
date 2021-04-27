@@ -65,6 +65,7 @@ const SignIn = ({ setIsAuth }) => {
     const [message, setMessage] = useState('')
     const [openAlert, setOpenAlert] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
+    const [buttonDisabled, setButtonDisabled] = useState(false)
     const history = useHistory()
     const dispatch = useDispatch()
     const classes = useStyles()
@@ -97,6 +98,7 @@ const SignIn = ({ setIsAuth }) => {
     // Log in user
     const loginUser = async (values) =>{
       try {
+        setButtonDisabled(true)
         const response = await fetch('https://vacationweb.herokuapp.com/auth/login', { method: 'POST',
             headers: {
                 'Content-Type':'application/json'
@@ -108,10 +110,12 @@ const SignIn = ({ setIsAuth }) => {
           localStorage.setItem('user',JSON.stringify(data.user))
           dispatch(authUser(data.user))
           setIsAuth(true)
+          setButtonDisabled(false)
           history.push('/')
        } else {
           setMessage(data.error)
           setOpenAlert(true)
+          setButtonDisabled(false)
        }  
     } catch(error) {
        console.log(error)
