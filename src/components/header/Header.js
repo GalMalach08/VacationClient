@@ -47,7 +47,8 @@ const Header = () => {
 
   return (
     <div className={classes.grow}>
-        <div className="container-fluid bg-white">
+    
+        <div className="container-fluid bg-white nav-fill w-100">
           <div className="container">
             <Navbar bg="white" expand="md" className="navbar">
               <Navbar.Brand style={{height:'40px'}}>

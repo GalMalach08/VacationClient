@@ -2,6 +2,7 @@ body{
     background:url('https://res.cloudinary.com/malachcloud/image/upload/c_scale,w_2000/v1618680249/92269542-airplane-in-the-sunset-sky-flight-travel-transport-airline-background-concept-_i7qawa.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-size: cover;
 }
 .mini_title {
     font-weight: 700;
