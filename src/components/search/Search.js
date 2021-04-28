@@ -74,6 +74,22 @@ const Search = () => {
     const handleClick = (e) => open ? setAnchorEl(null) : setAnchorEl(e.currentTarget)
     const handleStartDateChange = (date) => setSelectedStartDate(date)
     const handleEndDateChange = (date) => setSelectedEndDate(date)
+    const clearInput = () => {
+      setSearchValue('')
+      if(searchBy === 'Dates') {
+        setSelectedStartDate(new Date())
+        setSelectedEndDate(new Date())
+        bringAllVacation()
+    }
+  }
+
+    const bringAllVacation = async () => {
+      const res = await fetch(`https://vacationweb.herokuapp.com/vacation`)
+      const { vacations } = await res.json()
+      vacations.forEach(vacation => Boolean(vacation.Follows.find(follow => Number(follow.UserId) === Number(user.id))) ? vacation.isFollow = true : vacation.isFollow = false)
+      vacations.sort((x, y) =>  x.isFollow - y.isFollow).reverse()
+      dispatch(setVacationsState(vacations))
+    }
 
     const findVacations = async () => {
       let value = ''
@@ -144,7 +160,7 @@ const Search = () => {
               <span className="sort_span">search by</span>
               <Button className={classes.sortBtn} onClick={handleClick}> {searchBy} </Button> 
             </div>
-           <IconButton onClick={() => setSearchValue('')}> <ClearIcon fontSize="small"/> </IconButton> 
+           <IconButton onClick={() => clearInput() }> <ClearIcon fontSize="small"/> </IconButton> 
            <Poper vacations={vacations} open={open} anchorEl={anchorEl} setAnchorEl={setAnchorEl} setSearchBy={setSearchBy} />
           </div>
         </>

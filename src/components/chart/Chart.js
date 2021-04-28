@@ -37,12 +37,13 @@ const Chart = () => {
       labels,
       datasets: [{
         label:'Vacation follows chart',
+        fontColor: 'black',
         data,
         backgroundColor,
         borderColor :'#fff',
         borderWidth : 2,
         hoverBorderColor : '#000'
-      }]
+      }],
   })
 }
 
@@ -56,6 +57,7 @@ const Chart = () => {
         <Bar data={chartData} options={{
           responsive: true,
           title:{ text:'Vacation follows chart', display:true},
+         
         }}/>
       </Grid>
     </Grid>
