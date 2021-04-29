@@ -6,9 +6,11 @@ import Modal from 'react-bootstrap/Modal'
 // Formik
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+// React toastify 
+import { ToastContainer, toast, Zoom } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 // Material ui
 import { Input, IconButton, Collapse, TextField, Button, Grid  } from '@material-ui/core'
-import { StylesProvider } from '@material-ui/core/styles'
 import ImageIcon from '@material-ui/icons/Image'
 import CloseIcon from '@material-ui/icons/Close'
 import Alert from '@material-ui/lab/Alert'
@@ -52,6 +54,16 @@ const AddVacationModal = ({ addVacationModalOpen, setAddVacationModalOpen }) => 
         helperText: formik.errors[values] && formik.touched[values] ? formik.errors[values]:null
     })
 
+// Toastify
+const successToast = (message) => {
+    toast(message, { 
+     draggable: true, 
+     position: toast.POSITION.BOTTOM_RIGHT,
+     transition: Zoom,
+     autoClose: 2000
+    })
+  }
+
     // Add vacation
     const addVacation = async (values) => {
         try {
@@ -79,6 +91,7 @@ const AddVacationModal = ({ addVacationModalOpen, setAddVacationModalOpen }) => 
                 setButtonDisabled(false)
                 handleClose()
                 window.scrollTo(0,document.body.scrollHeight)
+                successToast('Vacation Added! 😎')
             } else {
                 setMessage(error)
                 setOpenAlert(true)
@@ -162,8 +175,11 @@ const AddVacationModal = ({ addVacationModalOpen, setAddVacationModalOpen }) => 
                             </form> )}
                         </Formik>  
                 </Modal.Body>
-            </Modal>   
+            </Modal> 
+            {/* ToastContainer */}
+            <ToastContainer  draggable={false} />   
         </>
+        
     )
 }
 

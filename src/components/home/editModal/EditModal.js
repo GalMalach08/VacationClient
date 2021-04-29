@@ -9,6 +9,9 @@ import ImageIcon from '@material-ui/icons/Image'
 import Alert from '@material-ui/lab/Alert'
 import DateFnsUtils from '@date-io/date-fns'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+// React toastify 
+import { ToastContainer, toast, Zoom } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 // bootstrap 
 import Modal from 'react-bootstrap/Modal'
 // Formik
@@ -56,6 +59,16 @@ const EditModal = ({ editModalOpen ,setEditModalOpen, vacationToEdit })  =>  {
       error: formik.errors[values] && formik.touched[values] ? true : false,
       helperText: formik.errors[values] && formik.touched[values] ? formik.errors[values]:null
   })
+
+  // Toastify
+  const successToast = (message) => {
+    toast(message, { 
+     draggable: true, 
+     position: toast.POSITION.BOTTOM_RIGHT,
+     transition: Zoom,
+     autoClose: 2000
+    })
+  }
  
     // Handle the dates state
     const handleStartDateChange = (date) => setSelectedStartDate(date)
@@ -125,6 +138,7 @@ const EditModal = ({ editModalOpen ,setEditModalOpen, vacationToEdit })  =>  {
           console.log('after ', newVacationArray)
           dispatch(updateVacations(newVacationArray))
           handleClose()
+          successToast('Vacation Updated! 😀')
           setButtonDisabled(false)
         } else {
           setMessage(error)
@@ -197,6 +211,8 @@ const EditModal = ({ editModalOpen ,setEditModalOpen, vacationToEdit })  =>  {
             </Modal.Body>
           </Modal>
       }
+       {/* ToastContainer */}
+       <ToastContainer  draggable={false} /> 
       </>
     )
   }

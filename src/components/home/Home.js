@@ -14,7 +14,7 @@ import { makeStyles, StylesProvider } from '@material-ui/core/styles'
 // Material ui icons
 import AddIcon  from '@material-ui/icons/Add'
 // React toastify 
-import { ToastConatiner, toast, Zoom, Bounce } from 'react-toastify'
+import { ToastContainer, toast, Zoom } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 // Intro js
 import { Steps } from 'intro.js-react'
@@ -90,8 +90,17 @@ const useStyles = makeStyles((theme) => ({
       { element:'#stepThree', intro:'Start following vacations to get them on top of your page 😎', position: 'left', tooltipClass: 'myTooltipClass' },
       { element:'#stepFour', intro: 'Try to serach for your dreamy vacation, use the "search by" tab to take more specific search 🔍', position: 'left', tooltipClass: 'myTooltipClass' },
   ])
-  toast.success('Follow Added! 🥳')
 
+
+
+ const successToast = (message) => {
+   toast(message, { 
+    draggable: true, 
+    position: toast.POSITION.BOTTOM_RIGHT,
+    transition: Zoom,
+    autoClose: 2000
+   })
+ }
   // Delete vacation 
   const deleteVacation = async (id,destination) => {
     try {
@@ -148,11 +157,10 @@ const useStyles = makeStyles((theme) => ({
               const vacation = vacations.find(vacation => vacation.id === VacationId)
               vacation.isFollow = true
               vacation.Follows.push({ UserId: user.id, VacationId })
-            
               sortVacations()
-              console.log(vacations);
               dispatch(setVacationsState(vacations))
-              setfollowSets(true)
+              successToast('Follow Added! ')
+             
             }
         } else {
           const response = await fetch('https://vacationweb.herokuapp.com/follow/unfollow', { 
@@ -169,7 +177,8 @@ const useStyles = makeStyles((theme) => ({
               vacation.Follows = vacation.Follows.filter(follow => !(follow.UserId ===  user.id && follow.VacationId === VacationId))
               sortVacations()
               dispatch(setVacationsState(vacations))
-              setfollowSets(true)
+              successToast('Follow Removed! ')
+            
             }
         }
       } catch(err) {
@@ -225,6 +234,8 @@ const useStyles = makeStyles((theme) => ({
             {user.admin && <Fab color="primary"  className={classes.fab} onClick={() => setAddVacationModalOpen(true)} title="Add new vacation"> 
                 <AddIcon />
               </Fab> } 
+            {/* ToastContainer */}
+            <ToastContainer /> 
             {/* Modals */}
             { addVacationModalOpen && <AddVacationModal addVacationModalOpen={addVacationModalOpen} setAddVacationModalOpen={setAddVacationModalOpen} />}
             { vacationToEdit && <EditModal setEditModalOpen={setEditModalOpen} editModalOpen={editModalOpen} vacationToEdit={vacationToEdit}/> }
