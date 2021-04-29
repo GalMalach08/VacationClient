@@ -44,6 +44,7 @@ const Chart = () => {
         borderWidth : 2,
         hoverBorderColor : '#000'
       }],
+
   })
 }
 

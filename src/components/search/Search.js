@@ -99,7 +99,12 @@ const Search = () => {
       const res = await fetch(`https://vacationweb.herokuapp.com/vacation/search/${JSON.stringify(searchObj)}`)
       const { vacations } = await res.json()
       vacations.forEach(vacation => Boolean(vacation.Follows.find(follow => Number(follow.UserId) === Number(user.id))) ? vacation.isFollow = true : vacation.isFollow = false)
-      vacations.sort((x, y) =>  x.isFollow - y.isFollow).reverse()
+      vacations.sort((x, y) => {
+        if (x.isFollow === y.isFollow) return 0
+        if (x.isFollow)  return -1
+        if (y.isFollow) return 1
+        return 0
+      })
       dispatch(setVacationsState(vacations))
     }
  

@@ -13,6 +13,9 @@ import { Grid, Fab, Grow } from '@material-ui/core'
 import { makeStyles, StylesProvider } from '@material-ui/core/styles'
 // Material ui icons
 import AddIcon  from '@material-ui/icons/Add'
+// React toastify 
+import { ToastConatiner, toast, Zoom, Bounce } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 // Intro js
 import { Steps } from 'intro.js-react'
 import 'intro.js/introjs.css'
@@ -70,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
   const dispatch = useDispatch()
   const vacations = useSelector(state => state.vacations.data)
   const [isAdmin, setIsAdmin] = useState(user ? user.admin : null)
+  const [followSets, setfollowSets] = useState(false)
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [vacationToEdit, setVacationToEdit] = useState('')
   const [addVacationModalOpen, setAddVacationModalOpen] = useState(false)
@@ -86,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
       { element:'#stepThree', intro:'Start following vacations to get them on top of your page 😎', position: 'left', tooltipClass: 'myTooltipClass' },
       { element:'#stepFour', intro: 'Try to serach for your dreamy vacation, use the "search by" tab to take more specific search 🔍', position: 'left', tooltipClass: 'myTooltipClass' },
   ])
+  toast.success('Follow Added! 🥳')
 
   // Delete vacation 
   const deleteVacation = async (id,destination) => {
@@ -104,16 +109,32 @@ const useStyles = makeStyles((theme) => ({
       const res = await fetch('https://vacationweb.herokuapp.com/vacation')
       const { vacations } = await res.json()
       vacations.forEach(vacation => Boolean(vacation.Follows.find(follow => Number(follow.UserId) === Number(user.id))) ? vacation.isFollow = true : vacation.isFollow = false)
-      vacations.sort((x, y) =>  x.isFollow - y.isFollow).reverse()
+      vacations.sort((x, y) => {
+        if (x.isFollow === y.isFollow) return 0
+        if (x.isFollow)  return -1
+        if (y.isFollow) return 1
+        return 0
+      })
       dispatch(setVacationsState(vacations))
     } catch(err) {
       console.log(err)
     }
   }
 
+  const sortVacations = () => {
+    vacations.forEach(vacation => Boolean(vacation.Follows.find(follow => Number(follow.UserId) === Number(user.id))) ? vacation.isFollow = true : vacation.isFollow = false)
+    vacations.sort((x, y) => {
+      if (x.isFollow === y.isFollow) return 0
+      if (x.isFollow)  return -1
+      if (y.isFollow) return 1
+      return 0
+    })
+  }
+
   // Set follow state
   const setFollow = async (VacationId, isFollow) => {
     try {
+      console.log(vacations)
         if(!isFollow) { // if the user not following - make follow
           const response = await fetch('https://vacationweb.herokuapp.com/follow', { 
             method: 'POST',
@@ -127,7 +148,11 @@ const useStyles = makeStyles((theme) => ({
               const vacation = vacations.find(vacation => vacation.id === VacationId)
               vacation.isFollow = true
               vacation.Follows.push({ UserId: user.id, VacationId })
+            
+              sortVacations()
+              console.log(vacations);
               dispatch(setVacationsState(vacations))
+              setfollowSets(true)
             }
         } else {
           const response = await fetch('https://vacationweb.herokuapp.com/follow/unfollow', { 
@@ -142,7 +167,9 @@ const useStyles = makeStyles((theme) => ({
               const vacation = vacations.find(vacation => vacation.id === VacationId)
               vacation.isFollow = false
               vacation.Follows = vacation.Follows.filter(follow => !(follow.UserId ===  user.id && follow.VacationId === VacationId))
+              sortVacations()
               dispatch(setVacationsState(vacations))
+              setfollowSets(true)
             }
         }
       } catch(err) {
@@ -185,13 +212,14 @@ const useStyles = makeStyles((theme) => ({
           <Grid container>
               {vacations ? 
               vacations.length !== 0 ?  vacations.map(vacation => (
-                <Grow in={true} timeout={700}>
-                <Grid item xs={11} lg={5} key={vacation.id}  className={classes.root}>
+                <Grow in={true}  timeout={700} key={vacation.id}>
+                <Grid item xs={11} lg={5}  className={classes.root}  >
                   <VacationCard vacation={vacation} editVacation={editVacation} 
                   deleteVacation={deleteVacation} setFollow={setFollow} isAdmin={isAdmin} />
                 </Grid> 
                 </Grow>
               )): null :  null  }
+            
           
             {/* Fab */}
             {user.admin && <Fab color="primary"  className={classes.fab} onClick={() => setAddVacationModalOpen(true)} title="Add new vacation"> 
