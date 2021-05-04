@@ -7,14 +7,11 @@ export const authGaurd = (ComposedComponent, setIsAuthenticate) => {
         const [isAuth, setIsAuth] = useState(false)
 
         const isUserAuthenticate = async () => {
-          // const response = await fetch('http://localhost:3001/auth/isauth')
-          // const { success } = await response.json()
           const user = JSON.parse(localStorage.getItem('user'))
           if (user) {
             setIsAuthenticate(true)
             setIsAuth(true) 
             if(props.match.path === '/chart') {
-              // const user = JSON.parse(localStorage.getItem('user'))
               if(user.admin) {
                 console.log('auth as admin')
               } else {
