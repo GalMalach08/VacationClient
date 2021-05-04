@@ -24,10 +24,12 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: 'whitesmoke',
       marginRight: theme.spacing(2),
       marginLeft: theme.spacing(2),
-      width: '408px',
+      width: '348px !important',
+      // width: 'auto',
       color:'black',
-      [theme.breakpoints.up('sm')]: {
-        width: 'auto',
+      margin: '10px 0px',
+      [theme.breakpoints.up('md')]: {
+        width: 'auto !important',
       },
     },
     searchIcon: {
@@ -37,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
       pointerEvents: 'none',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'right',
     },
     inputRoot: {
       color: 'inherit',
@@ -128,7 +130,7 @@ const Search = () => {
 
     return (
         <>
-       
+
            <div className={classes.search} id='stepFour'>
             <div className={classes.searchIcon}>
              { searchBy !== 'Dates' ? <SearchIcon/> : null }
@@ -150,6 +152,7 @@ const Search = () => {
               />
           </MuiPickersUtilsProvider>
          :
+         
             <InputBase
               type='text'
               value={searchValue}

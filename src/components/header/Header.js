@@ -61,7 +61,7 @@ const Header = () => {
               <Navbar.Toggle/>
               <Navbar.Collapse className="navbar_collapse" id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                  <Nav.Link className={classes.searchLink}>  <Search/> </Nav.Link>
+                  <div className={classes.searchLink}>  <Search/> </div>
                   <div className={classes.helloUser}>  Hello {username} </div>
                   <Nav.Link> 
                     <Link to="/" style={{ textDecoration: 'none', color:'black', marginTop:'7px' }}>

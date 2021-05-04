@@ -9,7 +9,7 @@ import AddVacationModal from './addVacationModal/AddVacationModal'
 import DeleteVacationModal from './deletevacation/DeleteVacationModal'
 import VacationCard from '../vacationCard/VacationCard'
 // Material ui components
-import { Grid, Fab, Grow } from '@material-ui/core'
+import { Grid, Fab, Grow, InputBase } from '@material-ui/core'
 import { makeStyles, StylesProvider } from '@material-ui/core/styles'
 // Material ui icons
 import AddIcon  from '@material-ui/icons/Add'
@@ -210,6 +210,7 @@ const useStyles = makeStyles((theme) => ({
 
   return (
     <>
+ 
       {firstEntry ? 
       <>
       <NewUserModal stepsEnabled={stepsEnabled} setStepsEnabled={setStepsEnabled}/>
